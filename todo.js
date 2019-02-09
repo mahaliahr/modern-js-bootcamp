@@ -1,20 +1,26 @@
-const todo = ['Laundry', 'Go to the bank', 'Go shopping', 'Tidy room', 'Make phone calls']
+const todo = [{
+    text: 'Laundry',
+    completed: true
+}, {
+    text: 'Go to the bank',
+    completed: false
+}, {
+    text: 'Go shopping',
+    completed: true 
+}, {
+    text: 'Tidy room',
+    completed: false
+}, {
+    text: 'Make phone calls',
+    completed: false
+}]
 
-todo.splice(2, 1)
-todo.push('Exercise')
-todo.shift()
-
-console.log(`You have ${todo.length} todos`)
-console.log(todo)
-
-todo.forEach(function (item, index) {
-    console.log(`${index +1}. ${item}`)
-})
-
-/* Covering for loop
-
-for (count = 0; count < todo.length; count++) {
-    console.log(`${count + 1}. ${todo[count]}`)
+const deleteTodo = function (todo, todoText) {
+    const index = todo.findIndex(function (todo, index){
+        return todo.text.toLowerCase() === todoText.toLowerCase()
+    })
+    todo.splice(index, 1)
 }
 
-*/
+deleteTodo(todo, 'laundry')
+console.log(todo)
