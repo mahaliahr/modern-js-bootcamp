@@ -22,5 +22,14 @@ const deleteTodo = function (todo, todoText) {
     todo.splice(index, 1)
 }
 
-deleteTodo(todo, 'laundry')
-console.log(todo)
+const getThingsToDo = function (todo) {
+    return todo.filter(function (todo) {
+        if (todo.completed === false)
+        return todo
+    })
+}
+
+console.log(getThingsToDo(todo))
+
+/* deleteTodo(todo, 'laundry')
+console.log(todo) */
