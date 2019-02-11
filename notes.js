@@ -15,6 +15,16 @@ const findNote = function (notes, noteTitle) {
    })
 }
 
+const sortNotes = function (notes) {
+    notes.sort(function (a, b) {
+        if (a.title.toLowerCase() < b.title.toLowerCase()) {
+            return -1
+        } else if (b.title.toLowerCase() < a.title.toLowerCase()) {
+            return 1
+        } else
+            return 0
+    })
+}
 // filter always returns an array
 
 const findNotes = function (note, query) {
@@ -25,15 +35,10 @@ const findNotes = function (note, query) {
     })
 }
 
-console.log(findNotes(notes, 'work'))
-
-/* const findNote = function (notes, noteTitle) {
-    const index = notes.findIndex(function (note, index){
-        return note.title.toLowerCase() === noteTitle.toLowerCase()
-    })
-    return notes[index]
-} */
+/* console.log(findNotes(notes, 'work'))
 
 const note =  findNote(notes, 'Reading')
-console.log(note)
-  
+console.log(note) */
+
+sortNotes(notes)
+console.log(notes) 

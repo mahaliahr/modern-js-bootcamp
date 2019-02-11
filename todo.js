@@ -15,6 +15,17 @@ const todo = [{
     completed: false
 }]
 
+const sortTodos = function (todo) {
+    todo.sort(function (a, b){
+        if (b.completed && !a.completed) {
+            return -1
+        } else if (a.completed && !b.completed) { 
+            return 1
+        } else
+            return 0
+    })
+} 
+
 const deleteTodo = function (todo, todoText) {
     const index = todo.findIndex(function (todo, index){
         return todo.text.toLowerCase() === todoText.toLowerCase()
@@ -29,7 +40,10 @@ const getThingsToDo = function (todo) {
     })
 }
 
-console.log(getThingsToDo(todo))
+sortTodos(todo)
+console.log(todo)
+
+// console.log(getThingsToDo(todo))
 
 /* deleteTodo(todo, 'laundry')
 console.log(todo) */
