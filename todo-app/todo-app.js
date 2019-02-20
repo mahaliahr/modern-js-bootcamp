@@ -15,10 +15,6 @@ const todo = [{
     completed: false
 }]
 
-// You have 2 todos left - summary in para tag
-
-// add p for each todo above 
-
 const incompleteTodos = todo.filter(function (todo){
     return !todo.completed
 })
@@ -32,3 +28,7 @@ todo.forEach(function (todo){
     p.textContent = todo.text
     document.querySelector('body').appendChild(p)
 })  
+
+document.querySelector('#add-todo').addEventListener('click', function (e) {
+    console.log('Add new todo')
+})
