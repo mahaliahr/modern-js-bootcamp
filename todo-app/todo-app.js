@@ -49,12 +49,12 @@ document.querySelector('#search-text').addEventListener('input', function(e) {
     renderTodos(todo, filters)
 })
 
-// Listen for new todo creation
-document.querySelector('#add-todo').addEventListener('click', function (e) {
-    console.log('Add new todo')
-})
-
-// Listen for todo text change
-document.querySelector('#type-new-todo').addEventListener('input', function(e) {
-    console.log(e.target.value)
+document.querySelector('#todo-form').addEventListener('submit', function(e){
+    e.preventDefault()
+    todo.push({
+        text: e.target.elements.addTodo.value,
+        completed: false
+    })
+    renderTodos(todo, filters)
+    e.target.elements.addTodo.value = ''
 })
