@@ -1,54 +1,8 @@
-const todo = [{
-    text: 'Laundry',
-    completed: true
-}, {
-    text: 'Go to the bank',
-    completed: false
-}, {
-    text: 'Go shopping',
-    completed: true 
-}, {
-    text: 'Tidy room',
-    completed: false
-}, {
-    text: 'Make phone calls',
-    completed: false
-}]
+let todo = getSavedTodos()
 
 const filters = {
     searchText: '',
     hideCompleted: false
-}
-
-const renderTodos = function (todo, filters) {
-    let filteredTodos = todo.filter(function (todo){
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-    }) 
-
-    filteredTodos = filteredTodos.filter(function (todo){
-        if (filters.hideCompleted) {
-            return !todo.completed
-        } else {
-            return true
-        }
-    })
-
-    const incompleteTodos = filteredTodos.filter(function (todo){
-        return !todo.completed
-    })
-
-    document.querySelector('#todos').innerHTML = ''
-
-    const todosLeft = document.createElement('h2')
-    todosLeft.textContent = `You have ${incompleteTodos.length} todos left`
-    document.querySelector('#todos').appendChild(todosLeft)
-
-    filteredTodos.forEach(function (todo){
-        const p = document.createElement('p')
-        p.textContent = todo.text
-        document.querySelector('#todos').appendChild(p)
-    })  
-
 }
 
 renderTodos(todo, filters)  
@@ -64,8 +18,9 @@ document.querySelector('#todo-form').addEventListener('submit', function(e){
         text: e.target.elements.addTodo.value,
         completed: false
     })
+    
     renderTodos(todo, filters)
-    e.target.elements.addTodo.value = ''
+    e.target.elements.addTodo.value = ' '
 })
 
 document.querySelector('#hide-completed').addEventListener('change', function(e) {
