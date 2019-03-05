@@ -20,12 +20,14 @@ const renderTodos = function (todo, filters) {
         return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
     }) 
 
+    // debugger
     filteredTodos = filteredTodos.filter(function (todo){
         if (filters.hideCompleted) {
             return !todo.completed
         } else {
             return true
         }
+       
     })  
     
     const incompleteTodos = filteredTodos.filter(function (todo){
@@ -45,9 +47,24 @@ const renderTodos = function (todo, filters) {
 
 // Get the DOM elements for an individual todo
 const generateTodoDOM = function (todo) {
-    const p = document.createElement('p')
-    p.textContent = todo.text
-    return p
+    const todoEl = document.createElement('div')
+    const checkbox = document.createElement('input')
+    const text = document.createElement('span')
+    const button = document.createElement('button')
+
+    // Setup todo checkbox
+    checkbox.setAttribute('type', 'checkbox')
+    todoEl.appendChild(checkbox)
+
+    // Setup todo text
+    text.textContent = todo.text
+    todoEl.appendChild(text)
+
+    // Setup button
+    button.textContent = 'x'
+    todoEl.appendChild(button)
+
+    return todoEl
 }
 
 // Get the DOM elements for list summary 

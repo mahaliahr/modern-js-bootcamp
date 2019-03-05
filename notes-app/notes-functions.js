@@ -13,15 +13,24 @@ const getSavedNotes = function (){
 const saveNotes = function() {
     localStorage.setItem('notes', JSON.stringify(notes)
 )}
-
+ 
 // Generate the DOM structure for a note
 const generateNoteDOM = function(note) {
-    const noteEl = document.createElement('p')
+    const noteEl = document.createElement('div')
+    const textEl = document.createElement('span')
+    const button = document.createElement('button')
+    
+    // Setup the remove note button
+    button.textContent = 'x'
+    noteEl.appendChild(button)
+
+    // Set up the note title text
     if (note.title.length > 0) {
-        noteEl.textContent = note.title
+        textEl.textContent = note.title
     } else {
-        noteEl.textContent = 'Unamed note'
+        textEl.textContent = 'Unamed note'
     }
+    noteEl.appendChild(textEl)
     return noteEl
 }
 
