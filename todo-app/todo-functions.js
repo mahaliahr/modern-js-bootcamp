@@ -1,6 +1,6 @@
 // Reads saved todos from localStorage
 const getSavedTodos = function () {
-    const todoJSON = localStorage.getItem('todo')
+    const todoJSON = localStorage.getItem('todos')
 
     if (todoJSON !== null) {
         return JSON.parse(todoJSON)
@@ -10,38 +10,39 @@ const getSavedTodos = function () {
 } 
 
 // Save todos to localStorage
-const saveTodos = function (todo) {
-    localStorage.setItem('todo', JSON.stringify(todo))
+const saveTodos = function (todos) {
+    localStorage.setItem('todos', JSON.stringify(todos))
+}
+
+// Remove todos from list
+const removeTodo = function (id){
+    const todoIndex = todos.findIndex(function (todo) {
+        return todo.id === id
+    })
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
 }
 
 // Render application todos based on filters
-const renderTodos = function (todo, filters) {
-    let filteredTodos = todo.filter(function (todo){
-        return todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
-    }) 
-
-    // debugger
-    filteredTodos = filteredTodos.filter(function (todo){
-        if (filters.hideCompleted) {
-            return !todo.completed
-        } else {
-            return true
-        }
-       
-    })  
+const renderTodos = function (todos, filters) {
+    const filteredTodos = todos.filter(function (todo) {
+        const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase())
+        const hideCompletedMatch = !filters.hideCompleted || !todo.completed
+        
+        return searchTextMatch && hideCompletedMatch
+    })
     
     const incompleteTodos = filteredTodos.filter(function (todo){
         return !todo.completed
     })
     
     document.querySelector('#todos').innerHTML = ''
+    document.querySelector('#todos').appendChild(generateDOMSummary(incompleteTodos))
 
     filteredTodos.forEach(function (todo){  
     document.querySelector('#todos').appendChild(generateTodoDOM(todo))
     }) 
-    
-    document.querySelector('#todos').appendChild(generateDOMSummary(incompleteTodos))
-    
     
 }
 
@@ -63,6 +64,11 @@ const generateTodoDOM = function (todo) {
     // Setup button
     button.textContent = 'x'
     todoEl.appendChild(button)
+    button.addEventListener('click', function(){
+        removeTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
 
     return todoEl
 }
