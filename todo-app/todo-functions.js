@@ -1,13 +1,13 @@
 // Reads saved todos from localStorage
 const getSavedTodos = function () {
-    const todoJSON = localStorage.getItem('todos')
+    const todosJSON = localStorage.getItem('todos')
 
-    if (todoJSON !== null) {
-        return JSON.parse(todoJSON)
+    if (todosJSON !== null) {
+        return JSON.parse(todosJSON)
     } else {
         return []
     }
-} 
+}
 
 // Save todos to localStorage
 const saveTodos = function (todos) {
@@ -21,6 +21,16 @@ const removeTodo = function (id){
     })
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1)
+    }
+}
+// Toggle the completed value for a given todo
+const toggleTodo = function (id) {
+    const todo = todos.find(function (todo){
+        return todo.id === id
+    })
+
+    if  (todo !== undefined) {
+        todo.completed = !todo.completed
     }
 }
 
@@ -55,7 +65,13 @@ const generateTodoDOM = function (todo) {
 
     // Setup todo checkbox
     checkbox.setAttribute('type', 'checkbox')
+    checkbox.checked = todo.completed
     todoEl.appendChild(checkbox)
+    checkbox.addEventListener('change', function(){
+        toggleTodo(todo.id)
+        saveTodos(todos)
+        renderTodos(todos, filters)
+    })
 
     // Setup todo text
     text.textContent = todo.text

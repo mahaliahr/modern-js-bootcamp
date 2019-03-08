@@ -5,7 +5,7 @@ const filters = {
     hideCompleted: false
 }
 
-renderTodos(todos, filters)  
+renderTodos(todos, filters) 
 
 document.querySelector('#search-text').addEventListener('input', function(e) {
     filters.searchText = e.target.value
@@ -21,6 +21,7 @@ document.querySelector('#todo-form').addEventListener('submit', function(e){
     })
     
     renderTodos(todos, filters)
+    saveTodos(todos)
     e.target.elements.addTodo.value = ' '
 })
 
