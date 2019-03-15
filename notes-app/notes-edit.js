@@ -2,14 +2,17 @@ const titleElement = document.querySelector('#note-title')
 const bodyElement = document.querySelector('#note-body ')
 const removeElement = document.querySelector('#remove-note')
 const noteID = location.hash.substring(1)
-const notes = getSavedNotes()
-const note = notes.find(function (note) {
-    return notes.id === noteID
+let notes = getSavedNotes()
+let note = notes.find(function (note) {
+    return note.id === noteID
 })
 
 if (note === undefined) {
-    location.assign('/index.html')
+    location.assign('/notes-app/index.html')
 }
+
+titleElement.value = note.title
+bodyElement.value = note.body
 
 titleElement.addEventListener('input', function(e) {
     note.title = e.target.value
@@ -23,5 +26,21 @@ bodyElement.addEventListener('input', function(e) {
 removeElement.addEventListener('click', function() {
     removeNote(note.id)
     saveNotes(notes )
-    location.assign('/index.html')
-}) 
+    location.assign('/notes-app/index.html')
+})
+
+window.addEventListener('storage', function(e) {
+    if (e.key === 'notes') {
+        notes = JSON.parse(e.newValue) 
+        note = notes.find(function (note) {
+            return note.id === noteID
+        })
+        
+        if (note === undefined) {
+            location.assign('/notes-app/index.html')
+        }
+        
+        titleElement.value = note.title
+        bodyElement.value = note.body
+    }
+})
