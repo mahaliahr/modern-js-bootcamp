@@ -32,3 +32,34 @@ window.addEventListener('storage', function(e) {
         renderNotes(notes, filters)
     }
 })
+
+const now = new Date()
+const timestamp = now.getTime()
+
+const myDate = new Date(timestamp)
+console.log(myDate.getFullYear())
+
+/* console.log(`Year: ${now.getFullYear()}`)
+console.log(`Month: ${now.getMonth()}`)
+console.log(`Day of month: ${now.getDate()}`)
+console.log(`Hour: ${now.getHours()}`)
+console.log(`Minute: ${now.getMinutes()}`)
+console.log(`Seconds: ${now.getSeconds()}`) */
+
+const dateOne = new Date('February 5, 2012 00:00:00')
+const dateTwo = new Date('July 11, 2000 00:00:00')
+
+const timestampOne = dateOne.getTime()
+const timestampTwo = dateTwo.getTime()
+
+console.log(dateOne)
+console.log(dateTwo)
+
+console.log(timestampOne)
+console.log(timestampTwo)
+
+if (timestampOne <  timestampTwo) {
+    console.log(dateOne.toString())
+} else if (timestampTwo <  timestampOne){
+    console.log(dateTwo.toString())
+}
